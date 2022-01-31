@@ -24,6 +24,7 @@ console.log("time displays!!!");
 // Time Table Container Section
 
 // create list of times that would be available on schedule (these should only go in column 1)
+// column 3 will have a button to save userInput which is in column 2
  var timeOptions = [
      '6:00 AM',
      '7:00 AM',
@@ -36,13 +37,14 @@ console.log("time displays!!!");
      '2:00 PM',
      '3:00 PM',
      '4:00 PM',
-    //  testing so i'll put more times in later
+    //  testing this out if i get it to work i'll finish times
  ];
 
 
-//  create a new <tr> for each time option 
+//  create a new <tr> for each time option (length) from timeOptions list above 
+// todo: i think i need to make an array so column 1, 2, 3 render to page
 for (var i = 0; i < timeOptions.length; i++) {
-console.log([i], "create table element");
+console.log([i], "column 1, column 2, column3");
 
 // at top var timeOptionsEl to create new element (<tr>) for each timeOption
 timeOptionsEl = $('<tr>' + timeOptions[i] + '</tr>'); 
