@@ -3,7 +3,7 @@
 ## Overview
 Welcome to Work Day Scheduler, a simple calendar application that allows you to save events by hour.
 
-# Minimum Viable Criteria 
+# Calendar Functions 
 This planner can be utilized to schedule events.
 Upon open today is visible
 The calendar provides time blocks for business hours 9-5pm

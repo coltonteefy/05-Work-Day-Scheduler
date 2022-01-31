@@ -4,20 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- bootstrap style linked -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
+
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
+
     <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
     />
+<!-- my style sheet linked -->
     <link rel="stylesheet" href="assets/style.css" />
     <title>Work Day Scheduler</title>
   </head>
@@ -26,14 +30,46 @@
     <header class="jumbotron">
       <h1 class="display-3">Work Day Scheduler</h1>
       <p class="lead">A simple calendar app for scheduling your work day</p>
+      <!-- this will use moment to display info -->
       <p id="currentDay" class="lead"></p>
+      <p id="currentTime"></p>
     </header>
-    <div class="container">
-      <!-- Timeblocks go here -->
+    <!-- added this section from bootstrap -->
+    <div class = "container p-3">
+      <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Event Details: click and schedule event </th>
+            <th scope="col">Save</th>
+          </tr>
+        </thead>
+        <!-- My todo: add new elements from list in javascript-->
+        <tbody class ="timeList">
+          <tr>
+            <td>time appears</td>
+            <td>click to type schedule details</td>
+            <td>save button (click to save)</td>
+          </tr>
+          <tr>
+            <td>time appears</td>
+            <td>click to type schedule details</td>
+            <td>save button (click to save)</td>
+          </tr>
+          <tr>
+            <td>time appears</td>
+            <td>click to type schedule details</td>
+            <td>save button (click to save)</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
+  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <!-- added bootstrap script because it was missing-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="assets/script.js"></script>
   </body>
 </html>
 
