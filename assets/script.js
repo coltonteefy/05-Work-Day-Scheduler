@@ -8,7 +8,9 @@ var currMoment = moment(); //moment variable
 var userInfoEl = $('#container'); //entire area where time displays 
 var timeOptionsEl = $('<tr>'); //create new elements
 var timeList = $('timeList'); // print to html
-
+var col1;
+var col2;
+var col3;
 
 // i get my variables mixed up
 
@@ -25,25 +27,20 @@ console.log("time displays!!!");
 
 // create list of times that would be available on schedule (these should only go in column 1)
 // column 3 will have a button to save userInput which is in column 2
- var timeOptions = [
-     '6:00 AM',
-     '7:00 AM',
-     '8:00 AM',
-     '9:00 AM',
-     '10:00 AM',
-     '11:00 AM',
-     '12:00 PM',
-     '1:00 PM',
-     '2:00 PM',
-     '3:00 PM',
-     '4:00 PM',
-    //  testing this out if i get it to work i'll finish times
- ];
-
+// create an object array [times, user, saveBtn]
+function data () {
+    col1: ['6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM'];     //  testing this out if i get it to work i'll finish times
+    col2: [userInfoEl];
+    col3: [generateSaveBtn];
+    
+    // create button jquery & add & style buttons for each new element we create    
+    var saveBtn = $('<saveBtn>'); //create save button
+    saveBtn.addClass ('saveBtn', 'i:hover'); // assign style to button
+    saveBtn.attr('col3', generateSaveBtn);
 
 //  create a new <tr> for each time option (length) from timeOptions list above 
 // todo: i think i need to make an array so column 1, 2, 3 render to page
-for (var i = 0; i < timeOptions.length; i++) {
+for (var i = 0; i < timeOptions.length[0]; i++) {
 console.log([i], "column 1, column 2, column3");
 
 // at top var timeOptionsEl to create new element (<tr>) for each timeOption
@@ -63,8 +60,17 @@ $.each (timeOptions, function(i, timeOptions) {
 })
 
 }
+}
 
-// add save button for each element
+
+// column data should be 1 timeList, 2 userInfo (data entry), save button to local (same for all elements created)
+
+
+
+
+// after user enters data  save button (onclick )
+
+// make sure data saves and form doesn't reset - prevent default
 
 
 
