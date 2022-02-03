@@ -27,7 +27,7 @@ console.log("time displays!!!");
 // create an object array [times (will complete), userInfo]
 
 //  testing this out if i get it to work i'll finish times
-var timeOptions = ['6:00 AM','7:00 AM', '8:00 AM', '9:00 AM','10:00 AM','11:00 AM','12:00 PM'];
+var timeOptions = ['6:00 AM','7:00 AM', '8:00 AM', '9:00 AM','10:00 AM','11:00 AM','12:00 PM', "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM", "12:00 PM"];
 console.log("time options array", timeOptions);
 
   
@@ -41,9 +41,14 @@ function renderData () {
     var timeOption = timeOptions[i]; // get time at current index
     console.log(i, timeOption);    
 
-    var newRowEl = $("<tr>"); //create new <tr> entire element
+    var newRowEl = $("<tr>"); //create new <tr> entire element in html
     var timeColumnEl = $("<td>"); // create new <td>
-    var detailsInputEl = $("<td>"); // create new input 
+    var detailsInputEl = $("<td>"); //create new input 
+    var userDataInput = $("<input>");
+    var itemButtonEl = $("<td>");
+        itemButtonEl.addClass("btn btn-outline-secondary saveBtn button #button-addon2").text("save");
+        userDataInput.addClass ("input-group mb-3 text form-control button-addn2")
+    
       
     // newRowEl.append(timeColumnEl);
     // newRowEl.append(detailsInputEl);
@@ -51,10 +56,12 @@ function renderData () {
     newRowEl.append (
       timeColumnEl,
       detailsInputEl,
-    )
+      itemButtonEl,
+    );
     
     timeColumnEl.text(timeOption);
-    detailsInputEl.html('<div>Details</div>');
+    detailsInputEl.html(userDataInput);
+
 
     console.log(newRowEl);
     timeList.append(newRowEl);
@@ -62,6 +69,7 @@ function renderData () {
 }
 
 renderData();
+
 
 
 // jQuery to on click change color 
