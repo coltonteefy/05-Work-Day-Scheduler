@@ -27,7 +27,7 @@ console.log("time displays!!!");
 // create an object array [times (will complete), userInfo]
 
 //  testing this out if i get it to work i'll finish times
-var timeOptions = ['6:00 AM','7:00 AM', '8:00 AM', '9:00 AM','10:00 AM','11:00 AM','12:00 PM', "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM", "12:00 PM"];
+var timeOptions = [ '9:00 AM','10:00 AM','11:00 AM','12:00 PM', "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "8:00PM", "11:00PM"];
 console.log("time options array", timeOptions);
 
   
@@ -46,7 +46,7 @@ function renderData () {
     var detailsInputEl = $("<td>"); //create new input 
     var userDataInput = $("<input>");
     var itemButtonEl = $("<td>");
-        itemButtonEl.addClass("btn btn-outline-secondary saveBtn button #button-addon2").text("save");
+        itemButtonEl.addClass ("btn btn-outline-secondary saveBtn button #button-addon2").text("save");
         userDataInput.addClass ("input-group mb-3 text form-control button-addn2")
     
       
@@ -65,25 +65,51 @@ function renderData () {
 
     console.log(newRowEl);
     timeList.append(newRowEl);
+
+    // set button input value/storeValue 
+    $("tbody").click(
+        function storeData (){
+    // creates an item named storedUserData 
+       local.localStorage.setItem("storedUserData").val();
+       })
+    // store value in local
+    function getData () {
+        return localStorage.getItem("storedUserData", JSON.stringify(storedUserData));
+    }
+    console.log(getData)
+    
+    // with some formatting conditions for past, present, future events
+    // note this is not working correctly maybe because format of array?
+    if      ( moment(currMoment).format('hh A') > i) {
+            newRowEl.addClass("past");
+            } 
+    else if ( moment(currMoment).format('hh A') < i) {
+            newRowEl.addClass("future"); 
+            }
+    else (moment(currMoment).format('hh A') === i) 
+            newRowEl.addClass("present")
+
     }
 }
 
 renderData();
 
+// handle save event on click
+
+
 
 
 // jQuery to on click change color 
-/* $("button").click function() {
-  $("h1").css("color", "purple");
+/* $("button").click function() {$("h1").css("color", "purple");
 });
 
 // jQuery to detect keystrokes
-/ $("tbody").keypress(function(event) {
+// $("tbody").keypress(function(event) {
   $("input-group-append").text(event.key);
   console.log (event.key);
 });
 
-/ $("tbody").click(function(event) {
+// $("tbody").click(function(event) {
   $("input-group-append").text(event.key);
   console.log (event.key);
 });
@@ -103,27 +129,8 @@ change value of any element (ex ahref)
 $("a").attr("value to change", "change value");
 
 */
-
-// // assign class (in the future)
-//     // var addRowClass ()
-// // assign row to attribute
-//     createRow.attr('timeList', timeOptions[i]);
-// // display row 
-//     createRow.text(timeOptions[i]);
-//     console.log(createRow.timeOptions);
-// };
-
 // }
-// with some formatting conditions for past, present, future events
-//         if (i > currMoment) {
-//         Element.setAttribute("present");
-//         } 
-//         else if (i < currMoment) { 
-//         Element.setAttribute("future"); 
-//         }
-//         else (i === currMoment) 
-//         Element.setAttribute("present");
-//        };
+//
 
 // var timeOptionsEl to create new element for (<tr>) for everything between <tr> and <td> within that for each timeOption [i]
 // timeOptionsEl = $('<tr' + timeOptions[i] + '</td>'); 
@@ -153,8 +160,4 @@ $("a").attr("value to change", "change value");
 // make sure data saves and form doesn't reset - prevent default
 
 // if time > then color present, if else, color past, else color future
-
-
-
-
 
