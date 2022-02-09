@@ -16,7 +16,7 @@ This planner can be utilized to schedule events.
 - When refreshed the event has been recorded.
 
 ## Preview
-### ***udpate screenshot***<br>
+
 ![A user clicks on slots on the color-coded calendar and edits the events.](./Assets/screenshot.png )
 
 
