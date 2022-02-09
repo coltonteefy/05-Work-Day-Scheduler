@@ -17,7 +17,7 @@ This planner can be utilized to schedule events.
 
 ## Preview
 ### ***udpate screenshot***<br>
-![A user clicks on slots on the color-coded calendar and edits the events.](./Assets/05-third-party-apis-homework-demo.gif)
+![A user clicks on slots on the color-coded calendar and edits the events.](./Assets/screenshot.png )
 
 
 ## Links
