@@ -70,3 +70,25 @@ body {
     transition: all 0.3s ease-in-out;
   }
   
+
+
+
+
+
+
+  .input-grid {
+    display: grid;
+    grid-template-columns: 80% 20%;
+  }
+
+  .present{
+    background: red;
+  }
+
+  .past{
+    background: gray;
+  }
+
+  .future{
+    background: green;
+  }

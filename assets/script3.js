@@ -1,163 +1,90 @@
-console.log("This page works!");
+const timeList = document.getElementById('timeList');
 
-// define any DOM element references (use jquery?)
-// to-do: add additional elements
-var todaysDateEl = $('#currentDay'); //date and time are showing here
-var todaysTimeEl = $('currentTime'); //created this in case i wanted to do time separate
-var currMoment = moment(); //moment variable 
-var userInfoEl = $('#container'); //entire area where time displays 
-var timeOptionsEl = $('<tr>'); //create new elements
-var timeList = $('#timeList'); // print to html
-var userDataInputEl = $('input-group-append') //user input
+let taskUpdates = {
+  task: "",
+  id: 0,
+};
 
-var retrieveUserInfo = localStorage.getItem ("userInfo"); // retrieve user entry variable
+let storage = {};
 
-// i get my variables mixed up
-
-// moment function using moment api to display date and time
-today = { text: moment().format("h:00 A"), hour: moment().hour() };
-console.log(today)
-$(todaysDateEl).text(currMoment.format("LLLL"));
-console.log("time displays!!!");
-
-
-// Time Table Container Section
-// maybe i am using my variables timeOptions or timeOptionsEl incorrectly
-// create list of times that would be available on schedule (these should only go in column 1)
-// create an object array [times (will complete), userInfo]
-
-//  testing this out if i get it to work i'll finish times
-var timeOptions = [ '9:00 AM','10:00 AM','11:00 AM','12:00 PM', "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "8:00PM", "11:00PM"];
-console.log("time options array", timeOptions);
-
-  
-//  for i create a new <tr> for each [index] time option (length) from timeOptions list above 
-function renderData () {
-  for (var i = 0; i < timeOptions.length; i ++)  {
-    console.log("timeOption length", timeOptions.length);
-    console.log("loop running", timeOptions[i]);
-
-    // create new element for rows in table 
-    var timeOption = timeOptions[i]; // get time at current index
-    console.log(i, timeOption);    
-
-    var newRowEl = $("<tr>"); //create new <tr> entire element in html
-    var timeColumnEl = $("<td>"); // create new <td>
-    var detailsInputEl = $("<td>"); //create new input 
-    var userDataInput = $("<input>");
-    var itemButtonEl = $("<td>");
-        itemButtonEl.addClass ("btn btn-outline-secondary saveBtn button #button-addon2").text("save");
-        userDataInput.addClass ("input-group mb-3 text form-control button-addn2")
-    
-      
-    // newRowEl.append(timeColumnEl);
-    // newRowEl.append(detailsInputEl);
-
-    newRowEl.append (
-      timeColumnEl,
-      detailsInputEl,
-      itemButtonEl,
-    );
-    
-    timeColumnEl.text(timeOption);
-    detailsInputEl.html(userDataInput);
-
-
-    console.log(newRowEl);
-    timeList.append(newRowEl);
-
-    // set button input value/storeValue 
-    $("tbody").click(
-        function storeData (){
-    // creates an item named storedUserData 
-       local.localStorage.setItem("storedUserData").val();
-       })
-    // store value in local
-    function getData () {
-        return localStorage.getItem("storedUserData", JSON.stringify(storedUserData));
+const onLoad = () => {
+  if (localStorage.getItem('currentDayTimes') === null) {
+    const currentDayTimes = {
+      9: { time: "9:00 AM", task: "" },
+      10: { time: "10:00 AM", task: "" },
+      11: { time: "11:00 AM", task: "" },
+      12: { time: "12:00 PM", task: "" },
+      13: { time: "1:00 PM", task: "" },
+      14: { time: "2:00 PM", task: "" },
+      15: { time: "3:00 PM", task: "" },
+      16: { time: "4:00 PM", task: "" },
+      17: { time: "5:00 PM", task: "" },
     }
-    console.log(getData)
-    
-    // with some formatting conditions for past, present, future events
-    // note this is not working correctly maybe because format of array?
-    if      ( moment(currMoment).format('hh A') > i) {
-            newRowEl.addClass("past");
-            } 
-    else if ( moment(currMoment).format('hh A') < i) {
-            newRowEl.addClass("future"); 
-            }
-    else (moment(currMoment).format('hh A') === i) 
-            newRowEl.addClass("present")
 
+    localStorage.setItem('currentDayTimes', JSON.stringify(currentDayTimes))
+  } else {
+    storage = JSON.parse(localStorage.getItem('currentDayTimes'));
+    console.log(storage)
+    for (const [key, value] of Object.entries(storage)) {
+      createTimeRow(key, value);
     }
+  }
 }
 
-renderData();
+const saveUpdatedTasks = () => {
+  localStorage.setItem('currentDayTimes', JSON.stringify(storage));
+}
 
-// handle save event on click
+const onChange = (e) => {
+  taskUpdates.task = e.target.value;
+  taskUpdates.id = e.target.id;
 
+  storage[taskUpdates.id].task = taskUpdates.task;
+  console.log("changing", taskUpdates, storage);
+}
 
+const createTimeRow = (key, value) => {
+  let pastPresentFuture = "present";
+  const militaryTime = moment(new Date()).format("H");
 
+  if (Number(militaryTime) === Number(key)) {
+    pastPresentFuture = "present";
+  } else {
+    Number(key) > Number(militaryTime) ? pastPresentFuture = "future" : pastPresentFuture = "past";
+  }
 
-// jQuery to on click change color 
-/* $("button").click function() {$("h1").css("color", "purple");
-});
+  const newRow = document.createElement('tr');
+  newRow.setAttribute('class', pastPresentFuture);
 
-// jQuery to detect keystrokes
-// $("tbody").keypress(function(event) {
-  $("input-group-append").text(event.key);
-  console.log (event.key);
-});
+  const timeSection = document.createElement('td');
+  timeSection.appendChild(document.createTextNode(value.time));
+  newRow.appendChild(timeSection);
 
-// $("tbody").click(function(event) {
-  $("input-group-append").text(event.key);
-  console.log (event.key);
-});
+  const input = document.createElement('input');
+  input.addEventListener('change', (e) => { onChange(e) })
+  input.setAttribute('type', "text");
+  input.setAttribute('class', "form-control");
+  input.setAttribute('id', key);
+  input.setAttribute('placeholder', value.task != "" ? value.task : "Schedule Event Details");
+  input.setAttribute('aria-label', "Recipient's username");
+  input.setAttribute('aria-describedby', "button-addon2");
 
-/ $("tbody").on(click, function(event) {
-  $("input-group-append").text(event.key);
-  console.log (event.key);
-});
+  const button = document.createElement('button');
+  button.setAttribute('class', "btn btn-outline-secondary saveBtn");
+  button.setAttribute('id', "button-addon2");
+  button.setAttribute('onclick', 'saveUpdatedTasks()')
+  button.appendChild(document.createTextNode("Save"));
 
-Create new elements in html (opening tag)
-.before ("<button>")
-.after
-.prepend
-.append 
+  const inputSection = document.createElement('td');
+  inputSection.setAttribute('class', 'input-grid');
+  inputSection.appendChild(input);
+  inputSection.appendChild(button);
+  newRow.appendChild(inputSection);
 
-change value of any element (ex ahref)
-$("a").attr("value to change", "change value");
+  inputSection.appendChild(input);
+  inputSection.appendChild(button);
 
-*/
-// }
-//
+  timeList.appendChild(newRow);
+}
 
-// var timeOptionsEl to create new element for (<tr>) for everything between <tr> and <td> within that for each timeOption [i]
-// timeOptionsEl = $('<tr' + timeOptions[i] + '</td>'); 
-// console.log([i]);
-// $('#timeList > tbody:last-child').append('<tr>...</tr>');
-
-
-// add this new element <tr> created to the table container
-// timeList.append(timeOptionsEl);
-
-// this is in our class work but not sure if i need to do this:
-// select all <tr> elements on page (same as getElementbyId)
-// $.each (timeOptions, function(i, timeOptions) {
-//     timeOptionsEl.append('<tr>' + timeOptions + '/<tr>');
-// })
-
-// }   
- 
-
-// save button on click to local (for variables created above as userInfo)
-// localStorage.on('click', 'userInfo', JSON.stringify('userInfo'));
-
-// after user enters data  save button (onclick )
-
-// when refreshed data displays (for variables created above as userInfo)
-
-// make sure data saves and form doesn't reset - prevent default
-
-// if time > then color present, if else, color past, else color future
-
+onLoad();
